@@ -4,7 +4,10 @@ from django.urls import reverse
 
 menu = [
     {'title': 'О сайте', 'url_name': 'about'},
+    {'title': 'Каталог', 'url_name': 'catalog'},
     {'title': 'Информация', 'url_name': 'info'},
+    {'title': 'Новости', 'url_name': 'news'},
+    {'title': 'Избранное', 'url_name': 'wishlist'},
     {'title': 'Корзина', 'url_name': 'cart'},
     {'title': 'Войти', 'url_name': 'login'}
 ]
@@ -33,8 +36,20 @@ def about(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/about.html', data)
 
 
+def catalog(request: HttpRequest) -> HttpResponse:
+    return HttpResponse('Каталог')
+
+
+def wishlist(request: HttpRequest) -> HttpResponse:
+    return HttpResponse('Избранные товары')
+
+
+def news(request: HttpRequest) -> HttpResponse:
+    return HttpResponse('Новости сайта')
+
+
 def info(request: HttpRequest) -> HttpResponse:
-    return HttpResponse('Доп инфа')
+    return HttpResponse('Вся информация')
 
 
 def cart(request: HttpRequest) -> HttpResponse:
