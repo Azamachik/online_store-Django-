@@ -13,4 +13,5 @@ urlpatterns = [
     path('catalog/', views.catalog, name='catalog'),
     path('info/', views.info, name='info'),
     path('login/', views.login, name='login'),
+    path('category/<int:cat_id>', views.show_category, name='category'),
 ]

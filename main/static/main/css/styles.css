@@ -50,6 +50,29 @@ a:hover {
 }
 /* Header */
 
+/* catalog */
+.cats li a {
+    color: gray;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all .3s;
+}
+.cats li a:hover {
+    color: blue;
+    font-size: 20px;
+    transition: all .3s;
+}
+
+.highlighted {
+  color: blue;
+  font-size: 20px;
+  border: 1px solid #84AFFA; /* Граница вокруг выбранного элемента */
+  background-color: #e3f2fd; /* Цвет фона для подсветки */
+  padding: 5px; /* Отступы внутри элемента */
+  border-radius: 7px; /* Закругление углов */
+}
+/* catalog */
+
 /* footer */
 .footer {
     background-color: #F5F5F5;

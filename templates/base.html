@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load my_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@
 			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
 		  </div>
 		  <div class="offcanvas-body">
-			<p>Подключение к БД</p>
+		    {% show_categories cat_selected %}
 		  </div>
 		</div>
 	  <!-- Catalog window-->

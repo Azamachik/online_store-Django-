@@ -19,12 +19,19 @@ db = [
     {'id': 4, 'user_name': 'Azaliya', 'is_authenticated': True},
     {'id': 5, 'user_name': 'Denis', 'is_authenticated': True}
 ]
-
+cats_db = [
+    {'id': 1, 'title': 'Телефоны'},
+    {'id': 2, 'title': 'Планшеты'},
+    {'id': 3, 'title': 'Телевизоры'},
+    {'id': 4, 'title': 'Пылесосы'},
+    {'id': 5, 'title': 'Холодильники'},
+]
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
     data: dict = {'title': 'Главная страница',
                   'menu': menu,
                   'data': db,
+                  'cat_selected': 0,
                   }
     return render(request, 'main/index.html', context=data)
 
@@ -58,6 +65,15 @@ def cart(request: HttpRequest) -> HttpResponse:
 
 def login(request: HttpRequest) -> HttpResponse:
     return HttpResponse('Авторизация')
+
+
+def show_category(request: HttpRequest, cat_id: int) -> HttpResponse:
+    data: dict = {'title': 'Отображение по категории',
+                  'menu': menu,
+                  'data': db,
+                  'cat_selected': cat_id,
+                  }
+    return render(request, 'main/index.html', context=data)
 
 
 def page_not_found(request, exception):
