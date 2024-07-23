@@ -3,7 +3,7 @@
   {% if cat.id == cat_selected %}
     <li class="selected highlighted">{{ cat.title }}</li>
   {% else %}
-    <li><a href="{% url 'category' cat.id%}">{{ cat.title }}</a></li>
+    <li><a href="{% url 'main:category' cat.id%}">{{ cat.title }}</a></li>
   {% endif %}
   {% endfor %}
 </ul>

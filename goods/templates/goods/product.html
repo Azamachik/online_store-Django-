@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 align="center">Здесь будет находится подробная карта товара. Пока такая</h1>
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-3 col-sm-6">
+                <div class="product-card">
+                    <div class="product-thumb">
+                        <a href="#"><img src="{% static 'main/images/450x600.jpg' %}"></a>
+                    </div>
+                    <div class="product-details">
+                        <h4><a href="#"></a>iPhone</h4>
+                        <p>вдылжоалждовыа</p>
+                        <div class="product-bottom-details d-flex justify-content-between">
+                            <div class="product-price">
+                                <small>100$</small> 100$
+                            </div>
+                            <div class="product-links">
+                                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="#"><i class="fas fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

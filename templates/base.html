@@ -17,7 +17,7 @@
 <body>
 	<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
 	  <div class="container-fluid">
-		<a class="navbar-brand" href="{% url 'home' %}">HOME</a>
+		<a class="navbar-brand" href="{% url 'main:home' %}">HOME</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
 		</button>
@@ -36,10 +36,10 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
 		    <li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="{% url 'info' %}">{{ menu.2.title }}</a>
+			  <a class="nav-link active" aria-current="page" href="{% url 'main:info' %}">Информация</a>
 			</li>
 		    <li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="{% url 'news' %}">{{ menu.3.title }}</a>
+			  <a class="nav-link active" aria-current="page" href="{% url 'main:news' %}">Новости</a>
 			</li>
 		  </ul>
 		<!-- Search -->
@@ -50,23 +50,23 @@
 				</div>
 			</div>
 		<!-- Search -->
-	  	  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+	  	  <ul class="header-icons navbar-nav ms-auto mb-2 mb-lg-0">
 		    <li class="nav-item">
-			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'wishlist' %}">
+			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:wishlist' %}">
 					<i class="fa-solid fa-heart"></i>
-					<span class="fa d-none d-sm-inline small">{{ menu.4.title }}</span>
+					<span class="fa d-none d-sm-inline small">Избранное</span>
 				</a>
 			</li>
 			<li class="nav-item">
-			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'cart' %}">
+			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:cart' %}">
 					<i class="fa fa-solid fa-cart-shopping"></i>
-					<span class="fa d-none d-sm-inline small">{{ menu.5.title }}</span>
+					<span class="fa d-none d-sm-inline small">Корзина</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'login'%}">
+				<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:login'%}">
 					<i class="fa fa-solid fa-user medium"></i>
-					<span class="fa d-none d-sm-inline small">{{ menu.6.title }}</span>
+					<span class="fa d-none d-sm-inline small">Войти</span>
 				</a>
 			</li>
 			</ul>
@@ -74,16 +74,7 @@
 	  </div>
 	</nav>
 
-{% block mainmenu %}
-<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1><h1 align="center">Здесь находится основной контент</h1>
-<h1 align="center">Здесь находится основной контент</h1>
-	<h1 align="center">Здесь находится основной контент</h1><h1 align="center">Здесь находится основной контент</h1>
+{% block content %}
 
 {% endblock %}
 
