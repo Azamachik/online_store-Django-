@@ -1,9 +1,11 @@
 <ul class="cats list-unstyled">
   {% for cat in cats %}
-  {% if cat.id == cat_selected %}
-    <li class="selected highlighted">{{ cat.title }}</li>
-  {% else %}
-    <li><a href="{% url 'main:category' cat.id%}">{{ cat.title }}</a></li>
+  {% if not cat.parent%}
+    {% if cat.id == cat_selected %}
+      <li class="selected highlighted">{{ cat.name }}</li>
+    {% else %}
+      <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+    {% endif %}
   {% endif %}
   {% endfor %}
 </ul>

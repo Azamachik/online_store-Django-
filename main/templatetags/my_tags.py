@@ -1,16 +1,11 @@
 from django import template
-from main import views
+from goods.models import Categories
 
 register = template.Library()
 
 
-@register.simple_tag(name='getcats')
-def get_categories():
-    return views.cats_db
-
-
 @register.inclusion_tag('main/list_categories.html')
 def show_categories(cat_selected: int = 0) -> dict:
-    return {'cats': views.cats_db,
+    return {'cats': Categories.objects.all(),
             'cat_selected': cat_selected,
             }

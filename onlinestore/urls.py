@@ -21,7 +21,7 @@ from main.views import page_not_found
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls', namespace='main')),
-    path('category/<int:cat_id>/', include('goods.urls', namespace='goods')),
+    path('', include('goods.urls', namespace='goods')),
 
 ]
 

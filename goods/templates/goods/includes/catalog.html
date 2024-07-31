@@ -6,14 +6,14 @@
             <div class="col col-lg-3 col-sm-6">
                 <div class="product-card">
                     <div class="product-thumb">
-                        <a href="{% url 'goods:product' 1 %}"><img src="{% static product.image %}"></a>
+                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}"></a>
                     </div>
                     <div class="product-details">
-                        <h4><a href="{% url 'goods:product' 1 %}">{{ product.name | truncatechars:20 }}</a></h4>
+                        <h4><a href="{{ product.get_absolute_url }}">{{ product.name | truncatechars:20 }}</a></h4>
                         <p>{{ product.description | truncatechars:30 }}</p>
                         <div class="product-bottom-details d-flex justify-content-between">
                             <div class="product-price">
-                                <small>{{ product.price }}$</small> {{ product.price }}$
+                                <small>{{ product.price }}₽</small> {{ product.price }}₽
                             </div>
                             <div class="product-links">
                                 <a href="#"><i class="fas fa-shopping-cart"></i></a>

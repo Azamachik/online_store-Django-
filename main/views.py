@@ -1,78 +1,16 @@
 from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-
-goods_db = [
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-    {
-        'image': 'main/images/450x600.jpg',
-        'name': 'Iphone 15 Pro Max Ultra +',
-        'description': 'Очень очень при очень очень дорогой Iphone 15 Pro Max Ultra +',
-        'price': 150,
-    },
-]
-cats_db = [
-    {'id': 1, 'title': 'Телефоны'},
-    {'id': 2, 'title': 'Планшеты'},
-    {'id': 3, 'title': 'Телевизоры'},
-    {'id': 4, 'title': 'Пылесосы'},
-    {'id': 5, 'title': 'Холодильники'},
-]
+from goods.models import Product, Categories
 
 
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
-    data: dict = {'title': 'Главная страница',
+    products = Product.objects.all()
+    data: dict = {'title': 'Главная',
                   'cat_selected': 0,
-                  'products': goods_db,
+                  'products': products,
                   }
     return render(request, 'main/index.html', context=data)
 
@@ -103,12 +41,15 @@ def login(request: HttpRequest) -> HttpResponse:
     return HttpResponse('Авторизация')
 
 
-def show_category(request: HttpRequest, cat_id: int) -> HttpResponse:
-    data: dict = {'title': 'Отображение по категории',
-                  'products': goods_db,
-                  'cat_selected': cat_id,
-                  }
-    return render(request, 'main/index.html', context=data)
+# def show_category(request: HttpRequest, cat_slug: str) -> HttpResponse:
+#     category = get_object_or_404(Categories, slug=cat_slug)
+#     products = Product.objects.filter(category_id=category.pk)
+#
+#     data: dict = {'title': f'{category.name}',
+#                   'products': products,
+#                   'cat_selected': category.pk,
+#                   }
+#     return render(request, 'main/index.html', context=data)
 
 
 def page_not_found(request, exception):

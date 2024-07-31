@@ -14,5 +14,5 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('info/', views.info, name='info'),
     path('login/', views.login, name='login'),
-    path('category/<int:cat_id>', views.show_category, name='category'),
+    #path('category/<slug:cat_slug>', views.show_category, name='category'),
 ]
