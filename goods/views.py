@@ -3,72 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from goods.models import Categories, Product
 
 
-# Create your views here.
-# def catalog(request: HttpRequest) -> HttpResponse:
-#     data = {
-#         'title': 'Каталог',
-#         'goods': [
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#             {
-#                 'image': 'main/images/450x600.jpg',
-#                 'name': 'Телефон',
-#                 'description': 'Очень дорогой телефон',
-#                 'price': 150,
-#             },
-#         ]
-#     }
-#     return render(request, 'goods/catalog.html', context=data)
-
 def show_category(request: HttpRequest, cat_slug: str) -> HttpResponse:
     category = get_object_or_404(Categories, slug=cat_slug)
-    products = Product.objects.filter(category_id=category.pk)
+    products = Product.objects.filter(category_id=category.pk).select_related('category')
 
     data: dict = {'title': f'{category.name}',
                   'products': products,

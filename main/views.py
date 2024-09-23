@@ -7,7 +7,7 @@ from goods.models import Product, Categories
 
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
-    products = Product.objects.all()
+    products = Product.objects.all().select_related('category')
     data: dict = {'title': 'Главная',
                   'cat_selected': 0,
                   'products': products,
