@@ -26,7 +26,16 @@ class Categories(MPTTModel):
         return self.name
 
 
+class PublishedProductManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_published=Product.Status.PUBLISHED)
+
+
 class Product(models.Model):
+    class Status(models.IntegerChoices):
+        DRAFT = 0, "Черновик"
+        PUBLISHED = 1, "Опубликовано"
+
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     category = TreeForeignKey('Categories', on_delete=models.PROTECT, related_name='products', verbose_name='Категория')
     slug = models.SlugField(max_length=250, blank=True, null=True, unique=True, verbose_name='URL')
@@ -35,9 +44,13 @@ class Product(models.Model):
     price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, verbose_name='Цена')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     discount = models.DecimalField(default=0.00, max_digits=4, decimal_places=2, verbose_name='Скидка в %')
+    is_published = models.IntegerField(default=Status.DRAFT, choices=Status.choices, verbose_name='Статус')
     # seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
+
+    objects = models.Manager()
+    published = PublishedProductManager()
 
     class Meta:
         db_table = 'product'

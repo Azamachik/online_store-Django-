@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 align="center">{{ title }}</h1>
+<form action="" method="post" class="row gy-3 ps-5">
+    {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    <div class="row">
+    {% for f in form %}
+    <div class="form-floating" style="width: 100%">
+        <div class="col-sm-6">
+        {% if f == form.name or f == form.slug or f == form.content %}
+            {{ f }}
+            <label class="ps-4">{{ f.label }}</label>
+            <div class="form-error">{{ f.errors }}</div>
+        {% elif f == form.discount or f == form.price or f == form.quantity %}
+        {% spaceless %}
+            {{ f }}
+            <label class="ps-4">{{ f.label }}</label>
+            <div class="form-error">{{ f.errors }}</div>
+        {% endspaceless %}
+        {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+        </div>
+    <div class="mt-0 form-floating" style="width: 25%">
+        {{ form.is_published }}
+        <label class="ps-4">{{ form.is_published.label }}</label>
+    </div>
+    <div class="mt-0 form-floating" style="width: 25%">
+        {{ form.category }}
+        <label class="ps-4">{{ form.category.label }}</label>
+    </div>
+<div class="mr-2 col-11">
+    <button type="submit" class="btn btn-primary me-2">Создать</button>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+  </div>
+</form>
+{% endblock %}

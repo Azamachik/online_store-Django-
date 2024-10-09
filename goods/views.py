@@ -1,5 +1,7 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+
+from goods.forms import AddProductForm
 from goods.models import Categories, Product
 
 
@@ -24,3 +26,28 @@ def show_product(request: HttpRequest, product_slug) -> HttpResponse:
     }
 
     return render(request, 'goods/product.html', data)
+
+
+def add_product(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        form = AddProductForm(request.POST)
+        if form.is_valid():
+            # try:
+            #     print(form.cleaned_data)
+            #     Product.objects.create(**form.cleaned_data)
+            #     return redirect('main:home')
+            # except Exception as error:
+            #     print(error)
+            #     form.add_error(None, 'Ошибка при добавлении товара')
+            form.save()
+            return redirect('main:home')
+
+    else:
+        form = AddProductForm()
+
+    data = {
+        'title': "Добавление товара",
+        'form': form,
+    }
+
+    return render(request, 'goods/add_product.html', data)
