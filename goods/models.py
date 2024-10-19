@@ -25,6 +25,9 @@ class Categories(MPTTModel):
     def __str__(self):
         return self.name
 
+    def level_indicator(self):
+        return '&nbsp;' * (self.level * 4) + str(self)
+
 
 class PublishedProductManager(models.Manager):
     def get_queryset(self):
@@ -36,14 +39,19 @@ class Product(models.Model):
         DRAFT = 0, "Черновик"
         PUBLISHED = 1, "Опубликовано"
 
+    class ProductStatus(models.IntegerChoices):
+        USED = 0, "Б/y"
+        NEW = 1, "Новое"
+
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     category = TreeForeignKey('Categories', on_delete=models.PROTECT, related_name='products', verbose_name='Категория')
     slug = models.SlugField(max_length=250, blank=True, null=True, unique=True, verbose_name='URL')
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
-    image = models.ImageField(upload_to='goods_images', blank=True, null=True, verbose_name='Изображения')
+    image = models.ImageField(upload_to='product_images/%Y/%m/%d/', blank=True, null=True, verbose_name='Фото')
     price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, verbose_name='Цена')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     discount = models.DecimalField(default=0.00, max_digits=4, decimal_places=2, verbose_name='Скидка в %')
+    product_status = models.IntegerField(default=ProductStatus.USED, choices=ProductStatus.choices, verbose_name='Состояние товара')
     is_published = models.IntegerField(default=Status.DRAFT, choices=Status.choices, verbose_name='Статус')
     # seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')

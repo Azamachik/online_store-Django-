@@ -30,7 +30,7 @@ def show_product(request: HttpRequest, product_slug) -> HttpResponse:
 
 def add_product(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
-        form = AddProductForm(request.POST)
+        form = AddProductForm(request.POST, request.FILES)
         if form.is_valid():
             # try:
             #     print(form.cleaned_data)
@@ -40,8 +40,8 @@ def add_product(request: HttpRequest) -> HttpResponse:
             #     print(error)
             #     form.add_error(None, 'Ошибка при добавлении товара')
             form.save()
-            return redirect('main:home')
-
+            if "create_btn" in request.POST:
+                return redirect('main:home')
     else:
         form = AddProductForm()
 
