@@ -7,7 +7,7 @@ from . import converters
 app_name = 'main'
 
 urlpatterns = [
-    path('',  views.index, name='home'),
+    path('',  views.HomePage.as_view(), name='home'),
     path('about/', views.about, name='about'),
     path('cart/', views.cart, name='cart'),
     path('wishlist/', views.wishlist, name='wishlist'),

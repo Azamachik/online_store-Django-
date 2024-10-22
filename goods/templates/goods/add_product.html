@@ -33,10 +33,17 @@
         <div class="form-error"> {{ f.error }}</div>
     </div>
 
-<div class="mr-2 col-11">
+<div class="mr-2 mb-5">
+
+    {% if title == "Добавление товара" %}
     <button type="submit" name="create_btn" class="btn btn-primary me-2">Разместить</button>
     <button type="submit" name="save_btn" class="btn btn-primary">Сохранить и остаться</button>
-  </div>
+    {% elif title == "Редактирование товара" %}
+    <button type="submit" name="save_leave_btn" class="btn btn-primary me-2">Сохранить</button>
+    <button type="submit" name="save_btn" class="btn btn-primary">Сохранить и остаться</button>
+    {% endif %}
+    <button type="submit" name="save_btn" class="btn btn-primary">Удалить</button>
+</div>
 </form>
 <script>
     const fileInput = document.getElementById('formFile');

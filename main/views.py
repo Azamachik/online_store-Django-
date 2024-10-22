@@ -1,18 +1,35 @@
 from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.generic import TemplateView
 
 from goods.models import Product, Categories
 
 
 # Create your views here.
-def index(request: HttpRequest) -> HttpResponse:
-    products = Product.objects.all().select_related('category')
-    data: dict = {'title': 'Главная',
-                  'cat_selected': 0,
-                  'products': products,
-                  }
-    return render(request, 'main/index.html', context=data)
+# def index(request: HttpRequest) -> HttpResponse:
+#     products = Product.objects.all().select_related('category')
+#     data: dict = {'title': 'Главная',
+#                   'cat_selected': 0,
+#                   'products': products,
+#                   }
+#     return render(request, 'main/index.html', context=data)
+
+
+class HomePage(TemplateView):
+    template_name = 'main/index.html'
+    extra_context = {
+        'title': 'Главная',
+        'cat_selected': 0,
+        'products': Product.published.all().select_related('category'),
+    }
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = 'Главная'
+    #     context['cat_selected'] = 0
+    #     context['products'] = Product.objects.all().select_related('category')
+    #     return context
 
 
 def about(request: HttpRequest) -> HttpResponse:
