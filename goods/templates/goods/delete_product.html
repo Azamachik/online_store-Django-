@@ -4,15 +4,45 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
+    <h2 align="center">Мои товары</h2>
     <p>Удаляемая запись: "{{ product.name }}"</p>
-    {{ form.as_p }}
+    <section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-4 col-sm-6">
+                <div class="product-card">
+                    <div class="product-thumb">
+                        {% if product.image %}
+                            <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt=""></a>
+                        {% else %}
+                            <a href="{{ product.get_absolute_url }}"><img src="#" alt=""></a>
+                        {% endif %}
+                    </div>
+                    <div class="product-details">
+                        <h4><a href="#"></a>{{ product.name }}</h4>
+                        <div class="product-bottom-details d-flex justify-content-between">
+                            <div class="product-price">
+                                <small>{{ product.price }}₽</small> {{ product.price }}₽ {{ product.discount }}%
+                            </div>
+                            <div class="product-links">
+                              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <span class="fa fa-solid fa-trash" style="color:#0d6efd"></span>
+                              </button>
+                              <button type="button" class="btn">
+                                <a href="#"><span class="fa-solid fa-pen-to-square"></span></a>
+                              </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Кнопка-триггер модального окна -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Удалить
-</button>
 
 <!-- Модальное окно -->
-<div class="modal-dialog modal-dialog-centered modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,11 +50,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
       <div class="modal-body">
-        <p>Восстановить после удаления будет невозможно!</p>
+        <p>Восстановить запись после удаления будет невозможно!</p>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Удалить</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Удалить</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Отмена</button>
       </div>
     </div>
   </div>

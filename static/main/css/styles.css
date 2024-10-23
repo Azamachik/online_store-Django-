@@ -109,7 +109,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
+    height: 250px;
     padding: 20px;
 }
 .product-thumb img {
@@ -152,9 +152,22 @@ a:hover {
     margin-right: 5px;
     margin-left: 5px;
 }
+.product-links span {
+    font-size: 20px;
+    margin-left: 5px;
+}
 .product-links a {
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
+}
+.product-links button {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.product-links .btn:focus,
+.product-links .btn:active{
+    box-shadow:none !important;
+    outline:0px !important;
 }
 /* product card */
 

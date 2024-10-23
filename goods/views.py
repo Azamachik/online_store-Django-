@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, FormView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, FormView, UpdateView, DeleteView, CreateView
 
 from goods.forms import AddProductForm
 from goods.models import Categories, Product
@@ -91,17 +91,13 @@ class ProductDetail(DetailView):
 #     return render(request, 'goods/add_product.html', data)
 
 
-class AddProduct(FormView):
+class AddProduct(CreateView):
     template_name = 'goods/add_product.html'
     form_class = AddProductForm
     success_url = reverse_lazy('main:home')
     extra_context = {
         'title': "Добавление товара",
     }
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
 
 
 class UpdateProduct(UpdateView):
