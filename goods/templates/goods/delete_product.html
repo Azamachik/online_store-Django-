@@ -5,7 +5,6 @@
 <form method="post">
     {% csrf_token %}
     <h2 align="center">Мои товары</h2>
-    <p>Удаляемая запись: "{{ product.name }}"</p>
     <section class="main-content">
     <div class="container">
         <div class="row">
@@ -29,7 +28,7 @@
                                 <span class="fa fa-solid fa-trash" style="color:#0d6efd"></span>
                               </button>
                               <button type="button" class="btn">
-                                <a href="#"><span class="fa-solid fa-pen-to-square"></span></a>
+                                <a href="{% url 'goods:edit_product' product.slug %}"><span class="fa-solid fa-pen-to-square"></span></a>
                               </button>
                             </div>
                         </div>

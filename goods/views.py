@@ -23,6 +23,7 @@ class ShowCategory(ListView):
     template_name = 'main/index.html'
     context_object_name = 'products'
     allow_empty = False
+    paginate_by = 100
 
     def get_queryset(self):
         category = Categories.objects.get(slug=self.kwargs['cat_slug'])
@@ -113,7 +114,7 @@ class UpdateProduct(UpdateView):
 
 class DeleteProduct(DeleteView):
     #form_class = AddProductForm
-    model = Product
+    #model = Product
     slug_url_kwarg = 'delete_slug'
     context_object_name = 'product'
     #fields = '__all__'
@@ -122,3 +123,6 @@ class DeleteProduct(DeleteView):
     extra_context = {
         'title': "Удаление товара",
     }
+
+    def get_queryset(self):
+        return Product.published.all()

@@ -230,6 +230,12 @@ a:hover {
 }
 /* footer.icons */
 
+/* pagination */
+.page-item a {
+    color: gray;
+}
+/* pagination */
+
 .imagePreview {
         display: inline-block;; /* Скрываем изображение изначально */
         width: 150px; /* Ширина изображения */
