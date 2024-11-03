@@ -15,6 +15,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </head>
 <body>
+
 	<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
 	  <div class="container-fluid">
 		<a class="navbar-brand" href="{% url 'main:home' %}">HOME</a>
@@ -38,19 +39,22 @@
 		    <li class="nav-item">
 			  <a class="nav-link active" aria-current="page" href="{% url 'main:info' %}">Информация</a>
 			</li>
-		    <li class="nav-item">
-			  <a class="nav-link active" aria-current="page" href="{% url 'main:news' %}">Новости</a>
-			</li>
 		  </ul>
-		<!-- Search -->
+		<!-- Поиск -->
 			<div class="input-group py-1 px-2 px-md-4">
 				<input class="form-control form-control-dark" type="text" placeholder="Найти на HOME" aria-label="Search">
 				<div class="input-group-append">
 					<button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
 				</div>
 			</div>
-		<!-- Search -->
+		<!-- Поиск -->
 	  	  <ul class="header-icons navbar-nav ms-auto mb-2 mb-lg-0">
+			  <li class="nav-item">
+			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:wishlist' %}">
+					<i class="fa-solid fa-box-open"></i>
+					<span class="fa d-none d-sm-inline small">Заказы</span>
+				</a>
+			</li>
 		    <li class="nav-item">
 			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:wishlist' %}">
 					<i class="fa-solid fa-heart"></i>
@@ -64,9 +68,17 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:login'%}">
+				{% if user.is_authenticated %}
+				<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="#">
+				{% else %}
+				<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'users:login'%}?next={{ request.path }}">
+				{% endif %}
 					<i class="fa fa-solid fa-user medium"></i>
-					<span class="fa d-none d-sm-inline small">Войти</span>
+					{% if user.is_authenticated %}
+						<span>{{ user.username|capfirst|slice:":12" }}</span>
+					{% else %}
+						<span class="fa d-none d-sm-inline small">Войти</span>
+					{% endif %}
 				</a>
 			</li>
 			</ul>

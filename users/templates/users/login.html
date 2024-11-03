@@ -1,0 +1,39 @@
+{% extends 'base_empty.html' %}
+{% load static %}
+
+{% block content %}
+<div class="contact-wrapper">
+  <h1 class="site-name"><a href="{% url 'main:home' %}"><i class="fa-regular fa-hand-point-left"></i>HOME</a></h1>
+  <header class="login-cta">
+    <h2>Авторизируйтесь</h2>
+  </header>
+    {% if form.errors %}
+    <h6 align="center" style="color: red">Неверные логин или пароль!</h6>
+    {% endif %}
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for f in form %}
+    <div class="form-row">
+      {{ f }}
+      <span>{{ f.label}}</span>
+    </div>
+    {% endfor %}
+    <div class="form-row">
+      <button type="submit">Войти</button>
+    </div>
+      <a href="#">Забыли пароль?</a>
+      <a style="padding-left: 120px;" href="{% url 'users:register' %}?next={% url 'users:login' %}">Регистрация</a>
+  </form>
+  <div class="socials-wrapper">
+    <header>
+      <h2>Авторизироваться с помощью</h2>
+    </header>
+    <ul>
+      <li><a href="#" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
+      <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+      <li><a href="#" class="twitch"><i class="fab fa-twitch"></i></a></li>
+      <li><a href="#" class="youtube"><i class="fab fa-youtube"></i></a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

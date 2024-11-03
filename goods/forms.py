@@ -10,6 +10,7 @@ from string import Template
 #         return mark_safe(html.substitute(link=value))
 #
 
+
 class AddProductForm(forms.ModelForm):
     # name = forms.CharField(max_length=150, label='Наименование продукта', widget=forms.TextInput(attrs={"class": "form-control", "id": "floatingInput", "style": "width: 50%", 'placeholder': "Name of product"}))
     # slug = forms.SlugField(max_length=250, label='URL', required=False, widget=forms.TextInput(attrs={"class": "form-control", "id": "floatingInput", "style": "width: 50%", 'placeholder': "Slug"}))
@@ -27,6 +28,7 @@ class AddProductForm(forms.ModelForm):
         self.fields['image'].checkbox_name = "Файл"
         #self.fields['category'].level_indicator = "&nbsp;" # = "Категория не выбрана"
         #self.fields['category'].label_from_instance = lambda obj: f"{' ' * (obj.level * 4)}{obj.name}"
+
     class Meta:
         model = Product
         fields = ['name', 'slug', 'description', 'product_status', 'image', 'price', 'quantity', 'discount', 'is_published', 'category']

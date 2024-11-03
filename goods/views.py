@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -92,7 +93,7 @@ class ProductDetail(DetailView):
 #     return render(request, 'goods/add_product.html', data)
 
 
-class AddProduct(CreateView):
+class AddProduct(LoginRequiredMixin, CreateView):
     template_name = 'goods/add_product.html'
     form_class = AddProductForm
     success_url = reverse_lazy('main:home')
@@ -100,8 +101,13 @@ class AddProduct(CreateView):
         'title': "Добавление товара",
     }
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.seller = self.request.user
+        return super().form_valid(form)
 
-class UpdateProduct(UpdateView):
+
+class UpdateProduct(LoginRequiredMixin, UpdateView):
     form_class = AddProductForm
     model = Product
     slug_url_kwarg = 'edit_slug'
@@ -112,7 +118,7 @@ class UpdateProduct(UpdateView):
     }
 
 
-class DeleteProduct(DeleteView):
+class DeleteProduct(LoginRequiredMixin, DeleteView):
     #form_class = AddProductForm
     #model = Product
     slug_url_kwarg = 'delete_slug'

@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
@@ -53,7 +54,7 @@ class Product(models.Model):
     discount = models.DecimalField(default=0.00, max_digits=4, decimal_places=2, verbose_name='Скидка в %')
     product_status = models.IntegerField(default=ProductStatus.USED, choices=ProductStatus.choices, verbose_name='Состояние товара')
     is_published = models.IntegerField(default=Status.DRAFT, choices=Status.choices, verbose_name='Статус')
-    # seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
+    seller = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='products', null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
 

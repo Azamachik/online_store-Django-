@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'main.apps.MainConfig',
     'goods.apps.GoodsConfig',
+    'users.apps.UsersConfig',
 
     'mptt',
     'django_mptt_admin',
@@ -167,3 +168,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'main:home'
+LOGOUT_REDIRECT_URL = 'main:home'
+LOGIN_URL = 'users:login'
