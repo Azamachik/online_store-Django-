@@ -1,0 +1,88 @@
+{% load static %}
+<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
+	  <div class="container-fluid">
+		<a class="header-font navbar-brand" href="{% url 'main:home' %}">HOME</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+	  <!-- Catalog window-->
+		<button class="header-font btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Каталог</button>
+		<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+		  <div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="offcanvasScrollingLabel">Каталог</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+		  </div>
+		  <div class="offcanvas-body">
+		    {% show_categories cat_selected %}
+		  </div>
+		</div>
+	  <!-- Catalog window-->
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		  <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+		    <li class="nav-item">
+			  <a class="header-font nav-link active" aria-current="page" href="{% url 'main:info' %}">Информация</a>
+			</li>
+		  </ul>
+		<!-- Поиск -->
+			<div class="input-group py-1 px-2 px-md-4">
+				<input class="header-font form-control form-control-dark" type="text" placeholder="Найти на HOME" aria-label="Search">
+				<div class="input-group-append">
+					<button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		<!-- Поиск -->
+	  	  <ul class="header-icons navbar-nav ms-auto mb-2 mb-lg-0">
+			  <li class="nav-item">
+				<div class="dropdown">
+				{% if not user.is_authenticated %}
+				<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'users:login'%}?next={{ request.path }}">
+				{% else %}
+				<a id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'users:profile' %}">
+				{% endif %}
+					<i class="fa fa-solid fa-user medium"></i>
+					{% if user.is_authenticated %}
+						<span>{{ user.username|capfirst|slice:":12" }}</span>
+					{% else %}
+						<span class="header-font">Войти</span>
+					{% endif %}
+				</a>
+					{% if user.is_authenticated %}
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="header-font dropdown-item" href="{% url 'users:profile' %}">Личный кабинет</a>
+						<a class="header-font dropdown-item position-relative" href="#">Сообщения
+							<span class="position-absolute top-3 start-100 translate-middle badge rounded-pill bg-danger">
+							99+
+							<span class="visually-hidden">непрочитанные сообщения</span>
+						  </span>
+						</a>
+						<a class="header-font dropdown-item" href="#">Настройки</a>
+						<form method="post" action="{% url 'users:logout' %}">
+							{% csrf_token %}
+							<button class="header-font dropdown-item" type="submit" style="color: #0d6efd;">Выход</button>
+						</form>
+        			</div>
+					{% endif %}
+				</div>
+			  </li>
+			  <li class="nav-item">
+			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:wishlist' %}">
+					<i class="fa-solid fa-box-open"></i>
+					<span class="header-font">Заказы</span>
+				</a>
+			</li>
+		    <li class="nav-item">
+			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:wishlist' %}">
+					<i class="fa-solid fa-heart"></i>
+					<span class="header-font">Избранное</span>
+				</a>
+			</li>
+			<li class="nav-item">
+			  	<a class="nav-link d-flex flex-column align-items-center" aria-current="page" href="{% url 'main:cart' %}">
+					<i class="fa fa-solid fa-cart-shopping"></i>
+					<span class="header-font">Корзина</span>
+				</a>
+			</li>
+			</ul>
+		</div>
+	  </div>
+	</nav>

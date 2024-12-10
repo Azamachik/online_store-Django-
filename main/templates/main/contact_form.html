@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html" charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link type="text/css" href="{% static 'main/css/contact.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'main/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="contact-form-container">
+      <div class="form">
+        <div class="contact-info">
+          <h3 class="title">Let's get in touch</h3>
+          <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+            dolorum adipisci recusandae praesentium dicta!
+          </p>
+
+          <div class="info">
+            <div class="information">
+              <i class="fas fa-map-marker-alt"></i> &nbsp &nbsp
+
+              <p>92 Cherry Drive Uniondale, NY 11553</p>
+            </div>
+            <div class="information">
+              <i class="fas fa-envelope"></i> &nbsp &nbsp
+              <p>lorem@ipsum.com</p>
+            </div>
+            <div class="information">
+              <i class="fas fa-phone"></i>&nbsp&nbsp
+              <p>123-456-789</p>
+            </div>
+          </div>
+
+          <div class="social-media">
+            <p>Connect with us :</p>
+            <div class="social-icons">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <span class="circle one"></span>
+          <span class="circle two"></span>
+
+          <form method="post">
+            {% csrf_token %}
+            <h3 class="title">Напишите нам</h3>
+            {% for f in form %}
+                {% if not forloop.last %}
+                    {% if forloop.counter == 3 %}
+                    <div class="input-container textarea">
+                  {% else %}
+                    <div class="input-container">
+                  {% endif %}
+                    {{ f }}
+                    <label for="">{{ f.label}}</label>
+                    <span>{{ f.label }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="captcha-container">
+              <label for="">{{ form.captcha.label }}</label>
+              <button class="captcha-refresh" type="button"><i class="fa-solid fa-rotate-right"></i></button>
+              {{ form.captcha }}
+            </div>
+
+            <input type="submit" value="Отправить" class="btn-form"/>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const inputs = document.querySelectorAll(".input");
+
+      function focusFunc() {
+        let parent = this.parentNode;
+        parent.classList.add("focus");
+      }
+
+      function blurFunc() {
+        let parent = this.parentNode;
+        if (this.value == "") {
+          parent.classList.remove("focus");
+        }
+      }
+
+      inputs.forEach((input) => {
+        input.addEventListener("focus", focusFunc);
+        input.addEventListener("blur", blurFunc);
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+$('.captcha-refresh').click(function(){
+    $form = $(this).parents('form');
+    $.getJSON("/captcha/refresh/", function (result) {
+        $('.captcha').attr('src', result['image_url']);
+        $('#id_captcha_0').val(result['key'])
+    });
+    return false;
+});
+  </script>
+  </body>
+</html>

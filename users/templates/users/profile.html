@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-3 col-sm-5">
+                <div class="user-profile-sidebar">
+                    <div class="user-profile-thumb">
+                        {% if user.photo %}
+                            <p><img src="{{ user.photo.url }}"></p>
+                        {% else %}
+                            <p class="user-profile-photo">{{ user.first_name|slice:":1"}}{{ user.last_name|slice:":1"}}</p>
+                        {% endif %}
+                        <a class='user-data-edit' href="#">{{ user.first_name }} {{ user.last_name }} <i class="fa fa-pen fa-2xs" style="margin-left: 5px;"></i></a>
+                        <br>
+                        <p><a href="{% url 'main:home' %}"><i class="fa fa-house"></i>Главная</a></p>
+                        <p><a href="{% url 'main:cart' %}"><i class="fa fa-bag-shopping"></i>Корзина</a></p>
+                        <p><a href="#"><i class="fa-solid fa-box-open"></i>Заказы</a></p>
+                        <p><a href="#"><i class="fa-solid fa-heart"></i>Избранное</a></p>
+                        <p><a href="#"><i class="fa-solid fa-rotate-left"></i>Возвраты</a></p>
+                        <p><a href="#"><i class="fa-solid fa-envelope"></i>Сообщения</a></p>
+                        <p><a href="#"><i class="fa-solid fa-credit-card"></i>Карты</a></p>
+                        <p><a href="#"><i class="fa-solid fa-ticket"></i>Промокоды и сертификаты</a></p>
+                        <br>
+                        <p><a href><i class="fa-solid fa-passport"></i>Мои данные</a></p>
+                        <br>
+                        <p><a href="#"><i class="fa-solid fa-user-slash"></i>Удалить аккаунт</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    {% for f in form %}
+    <div class="form-row">
+      {{ f }}
+      <span>{{ f.label}}</span>
+    </div>
+    <div class="form-error" >{{ f.errors }}</div>
+    {% endfor %}
+</form>
+
+{% endblock %}

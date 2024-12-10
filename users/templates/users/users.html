@@ -19,26 +19,29 @@
     <div class="form-row">
       <button type="submit">{{ button }}</button>
     </div>
+    {% if button2 %}
+      <div class="form-row">
+        <a align='center' href="{% url 'users:profile' %}">{{ button2 }}</a>
+      </div>
+    {% endif %}
     {% if extra_links %}
     {% for lbl, lnk in extra_links.items %}
       {% if forloop.last %}
-        <a style="margin-left: 120px;" href="{% url lnk %}?next={% url 'users:login' %}">{{ lbl }}</a>
+        <a style="margin-left: 100px;" href="{% url lnk %}?next={% url 'users:login' %}">{{ lbl }}</a>
       {% else %}
         <a href="{% url lnk %}">{{ lbl }}</a>
       {% endif %}
     {% endfor %}
   {% endif %}
   </form>
-  {% if extra_links %}
+  {% if extra_links|length == 2 %}
     <div class="socials-wrapper">
       <header>
         <h2>Авторизироваться с помощью</h2>
       </header>
       <ul>
-        <li><a href="#" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
-        <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
-        <li><a href="#" class="twitch"><i class="fab fa-twitch"></i></a></li>
-        <li><a href="#" class="youtube"><i class="fab fa-youtube"></i></a></li>
+        <li><a href="{% url 'social:begin' 'vk-oauth2' %}" class="facebook"><i class="fab fa-vk"></i></a></li>
+        <li><a href="{% url 'social:begin' 'github' %}" class="github"><i class="fab fa-github"></i></a></li>
       </ul>
     </div>
   </div>

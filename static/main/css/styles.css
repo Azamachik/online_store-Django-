@@ -1,6 +1,9 @@
 html {
     font-size: 16px;
 }
+html * {
+    font-family: comic sans ms;
+}
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -72,6 +75,21 @@ a:hover {
     padding-top: 15px;
     font-size: 20px;
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown-menu {
+    color: blue;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 0px);
+}
+.dropdown a::after {
+    display: none;
+}
+.header-font {
+    font-family: comic sans ms;
+}
 /* Header */
 
 /* catalog */
@@ -102,7 +120,7 @@ a:hover {
 
 /* product card */
 .container .row .col {
-       margin-bottom: 20px;
+      margin-bottom: 20px;
    }
 .product-card {
     border-radius: 10px;
@@ -262,3 +280,49 @@ a:hover {
 box-shadow:         0px 0px 30px 0px rgba(13, 110, 253, 0.67);
 }
 
+.form-error ul {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
+}
+
+/* user profile */
+.user-profile-sidebar {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+    transition: all .3s;
+}
+.user-profile-photo {
+    margin-left: 40px;
+    display: block;
+    height: 140px;
+    width: 140px;
+    line-height: 140px;
+    -moz-border-radius: 70px; /* or 50% */
+    border-radius: 70px; /* or 50% */
+
+    background-color: #7b5dfa;
+    color: white;
+    text-align: center;
+    font-size: 2em;
+}
+.user-profile-thumb .user-data-edit {
+    display: flex;
+    text-decoration: none;
+    font-size: 20px;
+    align-items: center;
+    color: black;
+}
+.user-profile-thumb p a {
+    text-decoration: none;
+    color: black;
+}
+.user-profile-thumb p a i {
+    margin-right: 5px;
+    font-size: 15px;
+}
+.user-profile-thumb p {
+    margin-bottom: 8px;
+    margin-left: 2px;
+}
+/* user profile */

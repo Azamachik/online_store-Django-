@@ -1,11 +1,12 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import LoginView
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
-from .forms import LoginUserForm, RegisterUserForm
+from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, PasswordChangeUserForm
 
 
 # Create your views here.
@@ -28,14 +29,15 @@ from .forms import LoginUserForm, RegisterUserForm
 
 class LoginUser(LoginView):
     form_class = LoginUserForm
-    template_name = 'users/login.html'
-    extra_context = {'title': "Авторизация"}
+    template_name = 'users/users.html'
+    links = {'Забыли пароль?': 'users:password_reset', 'Регистрация': 'users:register'}
+    extra_context = {'title': "Авторизация", 'button': 'Войти', 'extra_links': links}
 
 
 class RegisterUser(CreateView):
-    template_name = 'users/register.html'
+    template_name = 'users/users.html'
     form_class = RegisterUserForm
-    extra_context = {'title': 'Регистрация'}
+    extra_context = {'title': 'Регистрация', 'button': 'Зарегистрироваться'}
     success_url = reverse_lazy('users:login')
 
 # def register(request):
@@ -52,6 +54,26 @@ class RegisterUser(CreateView):
 #     return render(request, 'users/register.html', {'form': form})
 
 
-def logout_user(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('main:home'))
+class ProfileUser(LoginRequiredMixin, UpdateView):
+    form_class = ProfileUserForm
+    model = get_user_model()
+    template_name = 'users/profile.html'
+    extra_context = {'title': 'Личный кабинет'}
+
+    def get_success_url(self):
+        return reverse('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+# def logout_user(request):
+#     logout(request)
+#     return HttpResponseRedirect(reverse('main:home'))
+
+
+class PasswordChangeUser(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'users/users.html'
+    form_class = PasswordChangeUserForm
+    success_url = reverse_lazy('users:password_change_done')
+    links = {'Забыли пароль?': 'users:password_reset'}
+    extra_context = {'title': 'Изменение пароля', 'button': 'Изменить пароль', 'button2': 'Вернуться в профиль', 'extra_links': links}

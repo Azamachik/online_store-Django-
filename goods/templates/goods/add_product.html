@@ -5,7 +5,7 @@
 <h1 align="center">{{ title }}</h1>
 <form action="" method="post" enctype="multipart/form-data" class="row gy-3 ps-5">
     {% csrf_token %}
-    <div class="list-style: none; form-error">{{ form.non_field_errors|slice:'2' }}</div>
+    <div class="form-error">{{ form.non_field_errors }}</div>
     {% for f in form %}
     {% if f != form.category and f != form.is_published %}
         <div class="mb-3 form-floating" style="width: 100%">

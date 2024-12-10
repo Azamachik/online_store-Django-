@@ -26,8 +26,8 @@ class Categories(MPTTModel):
     def __str__(self):
         return self.name
 
-    def level_indicator(self):
-        return '&nbsp;' * (self.level * 4) + str(self)
+    # def level_indicator(self):
+    #     return '&nbsp;' * (self.level * 4) + str(self)
 
 
 class PublishedProductManager(models.Manager):
